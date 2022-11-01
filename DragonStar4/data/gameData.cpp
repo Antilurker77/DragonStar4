@@ -201,9 +201,8 @@ static Effect stringToEffect(const char* c) {
 	return Effect::Undefined;
 }
 
-static std::vector<Element> stringToElement(std::vector<std::string>& strv) {
-	std::vector<Element> elements;
-	elements.reserve(strv.size());
+static Element stringToElement(std::vector<std::string>& strv) {
+	Element elements{};
 
 	static const std::unordered_map<std::string, Element> elementMap = {
 		{"physical", Element::Physical},
@@ -220,14 +219,12 @@ static std::vector<Element> stringToElement(std::vector<std::string>& strv) {
 		auto result = elementMap.find(strv[i]);
 
 		if (result != elementMap.end()) {
-			elements.push_back(result->second);
+			elements |= result->second;
 		}
 		else {
 			std::cout << "Element Error: Could not parse " << strv[i] << ".\n";
 		}
 	}
-
-	std::sort(elements.begin(), elements.end());
 
 	return elements;
 }

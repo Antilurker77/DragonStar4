@@ -8,20 +8,21 @@
 
 #pragma once
 
+#include <cstdint>
+#include <string>
+#include <vector>
+
 class Actor;
 struct AbilityData;
 enum class Attribute;
 enum class Category;
-enum class Element;
-
-#include <string>
-#include <vector>
+enum class Element : uint8_t;
 
 struct CombatOptions {
 	std::string EventName = "Unknown Event";
 
 	std::vector<Category> Categories{};
-	std::vector<Element> Elements{};
+	Element Elements{};
 
 	size_t AbilityID = 0;
 	size_t AuraID = 0;

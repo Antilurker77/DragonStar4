@@ -9,7 +9,7 @@
 #pragma once
 
 enum class Category;
-enum class Element;
+enum class Element : uint8_t;
 enum class EquipType;
 
 #include <string>
@@ -43,7 +43,8 @@ struct AbilityData {
 	std::string Description = "Error.";
 	bool IsPassive = false;
 	std::vector<Category> Categories{};
-	std::vector<Element> Elements{};
+	//std::vector<Element> Elements{};
+	Element Elements{};
 	std::vector<EquipType> RequiredEquipTypes{};
 	AreaType AreaType{};
 	std::vector<int64_t> AreaArguments{};

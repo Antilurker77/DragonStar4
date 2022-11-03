@@ -8,13 +8,13 @@
 
 #pragma once
 
-class Actor;
-struct AbilityData;
-
 #include <string>
 #include <vector>
 #include <SFML/System.hpp>
 #include "../core/combat.hpp"
+
+class Actor;
+struct AbilityData;
 
 class Ability {
 public:

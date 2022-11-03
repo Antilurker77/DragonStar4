@@ -8,10 +8,10 @@
 
 #pragma once
 
-class Camera;
-
 #include <SFML/System.hpp>
 #include "command.hpp"
+
+class Camera;
 
 class MoveCommand : public Command {
 public:

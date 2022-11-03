@@ -8,11 +8,11 @@
 
 #pragma once
 
+#include <vector>
+
 enum class Category;
 enum class Element : uint8_t;
 enum class StatModType;
-
-#include <vector>
 
 struct StatMod {
 	StatModType StatModType{};

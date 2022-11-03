@@ -8,11 +8,11 @@
 
 #pragma once
 
-struct MonsterData;
-
 #include <string>
 #include <utility>
 #include "actor.hpp"
+
+struct MonsterData;
 
 typedef std::pair<size_t, sf::Vector2i> AIResult;
 

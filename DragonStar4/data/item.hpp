@@ -8,14 +8,14 @@
 
 #pragma once
 
+#include <string>
+#include <vector>
+#include "statMod.hpp"
+
 enum class EquipType;
 enum class ItemRarity;
 enum class ItemType;
 struct ItemData;
-
-#include <string>
-#include <vector>
-#include "statMod.hpp"
 
 class Item {
 public:

@@ -8,9 +8,9 @@
 
 #pragma once
 
-enum class GameState;
-
 #include <SFML/Graphics.hpp>
+
+enum class GameState;
 
 class CharacterCreationScene {
 public:

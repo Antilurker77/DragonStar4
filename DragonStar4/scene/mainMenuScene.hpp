@@ -8,10 +8,10 @@
 
 #pragma once
 
-enum class GameState;
-
 #include <SFML/Graphics.hpp>
 #include "../ui/button.hpp"
+
+enum class GameState;
 
 class MainMenuScene {
 public:

@@ -8,9 +8,9 @@
 
 #pragma once
 
-class Actor;
-
 #include <SFML/Graphics.hpp>
+
+class Actor;
 
 class ActorHUD {
 public:

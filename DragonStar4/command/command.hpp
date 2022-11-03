@@ -8,9 +8,9 @@
 
 #pragma once
 
-class Actor;
-
 #include <memory>
+
+class Actor;
 
 class Command {
 public:

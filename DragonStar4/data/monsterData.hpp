@@ -8,12 +8,12 @@
 
 #pragma once
 
+#include <string>
+#include <vector>
+
 enum class AICondition;
 enum class AITarget;
 enum class EquipType;
-
-#include <string>
-#include <vector>
 
 struct MonsterTactic {
 	int Rating = 0;

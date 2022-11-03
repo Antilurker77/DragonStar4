@@ -8,14 +8,14 @@
 
 #pragma once
 
-enum class Category;
-enum class Element : uint8_t;
-enum class EquipType;
-
 #include <string>
 #include <vector>
 #include "abilityEffect.hpp"
 #include "statMod.hpp"
+
+enum class Category;
+enum class Element : uint8_t;
+enum class EquipType;
 
 enum class AreaType {
 	Undefined = 0,

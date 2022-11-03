@@ -8,18 +8,18 @@
 
 #pragma once
 
-class Actor;
-class Camera;
-struct TileData;
-
-enum class GameState;
-
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "../command/command.hpp"
 #include "../entity/actor.hpp"
 #include "../entity/monster.hpp"
 #include "../pcg/pcg_random.hpp"
+
+class Actor;
+class Camera;
+struct TileData;
+
+enum class GameState;
 
 class DungeonScene {
 public:

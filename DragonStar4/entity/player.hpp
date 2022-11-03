@@ -8,12 +8,12 @@
 
 #pragma once
 
-struct RaceData;
-
 #include <array>
 #include <string>
 #include "actor.hpp"
 #include "../data/item.hpp"
+
+struct RaceData;
 
 class Player : public Actor {
 public:

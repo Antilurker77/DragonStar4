@@ -8,13 +8,13 @@
 
 #pragma once
 
-enum class EquipType;
-enum class ItemRarity;
-enum class ItemType;
-
 #include <string>
 #include <vector>
 #include "statMod.hpp"
+
+enum class EquipType;
+enum class ItemRarity;
+enum class ItemType;
 
 struct ItemData {
 	size_t ID = 0;

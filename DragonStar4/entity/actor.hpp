@@ -9,17 +9,17 @@
 
 #pragma once
 
-class Command;
-class DungeonScene;
-
-enum class Attribute;
-enum class StatModType;
-
 #include <memory>
 #include <string>
 #include "entity.hpp"
 #include "../data/ability.hpp"
 #include "../ui/actorHUD.hpp"
+
+class Command;
+class DungeonScene;
+
+enum class Attribute;
+enum class StatModType;
 
 typedef std::shared_ptr<Command> CommandPtr;
 

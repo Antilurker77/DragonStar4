@@ -8,20 +8,6 @@
 
 #pragma once
 
-/*
-enum class Element {
-	Undefined = 0,
-	Physical,
-	Arcane,
-	Fire,
-	Ice,
-	Lightning,
-	Poison,
-	Light,
-	Dark
-};
-*/
-
 enum class Element : uint8_t {
 	Undefined = 0,
 	Physical = 1 << 0,

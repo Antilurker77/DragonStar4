@@ -130,16 +130,20 @@ static Attribute stringToAttribute(const char* c) {
 	return Attribute::Undefined;
 }
 
-static std::vector<Category> stringToCategory(std::vector<std::string>& strv) {
-	std::vector<Category> categories;
-	categories.reserve(strv.size());
+static Category stringToCategory(std::vector<std::string>& strv) {
+	Category categories{};
 
 	static const std::unordered_map<std::string, Category> categoryMap = {
 		{"damaging", Category::Damaging},
 		{"healing", Category::Healing},
 		{"single_target", Category::SingleTarget},
+		{"area of effect", Category::AreaOfEffect},
 		{"direct", Category::Direct},
+		{"over_time", Category::OverTime},
 		{"attack", Category::Attack},
+		{"skill", Category::Skill},
+		{"tech", Category::Tech},
+		{"spell", Category::Spell},
 		{"passive", Category::Passive}
 	};
 
@@ -147,14 +151,12 @@ static std::vector<Category> stringToCategory(std::vector<std::string>& strv) {
 		auto result = categoryMap.find(strv[i]);
 
 		if (result != categoryMap.end()) {
-			categories.push_back(result->second);
+			categories |= result->second;
 		}
 		else {
 			std::cout << "Category Error: Could not parse " << strv[i] << ".\n";
 		}
 	}
-
-	std::sort(categories.begin(), categories.end());
 
 	return categories;
 }

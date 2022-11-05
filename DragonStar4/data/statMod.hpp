@@ -8,16 +8,17 @@
 
 #pragma once
 
+#include <cstdint>
 #include <vector>
 
-enum class Category;
+enum class Category : uint32_t;
 enum class Element : uint8_t;
 enum class StatModType;
 
 struct StatMod {
 	StatModType StatModType{};
 	int64_t Value = 0;
-	std::vector<Category> Categories{};
+	Category Categories{};
 	Element Elements{};
 	size_t AbilityID = 0;
 	size_t AuraID = 0;

@@ -8,12 +8,13 @@
 
 #pragma once
 
+#include <cstdint>
 #include <string>
 #include <vector>
 #include "abilityEffect.hpp"
 #include "statMod.hpp"
 
-enum class Category;
+enum class Category : uint32_t;
 enum class Element : uint8_t;
 enum class EquipType;
 
@@ -42,8 +43,7 @@ struct AbilityData {
 	std::string Icon = "placeholder";
 	std::string Description = "Error.";
 	bool IsPassive = false;
-	std::vector<Category> Categories{};
-	//std::vector<Element> Elements{};
+	Category Categories{};
 	Element Elements{};
 	std::vector<EquipType> RequiredEquipTypes{};
 	AreaType AreaType{};

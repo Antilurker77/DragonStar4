@@ -15,13 +15,13 @@
 class Actor;
 struct AbilityData;
 enum class Attribute;
-enum class Category;
+enum class Category : uint32_t;
 enum class Element : uint8_t;
 
 struct CombatOptions {
 	std::string EventName = "Unknown Event";
 
-	std::vector<Category> Categories{};
+	Category Categories{};
 	Element Elements{};
 
 	size_t AbilityID = 0;

@@ -167,20 +167,29 @@ static std::vector<std::vector<char>> stringToCharMap(const char* c) {
 	std::string_view str(c);
 	std::vector<char> row{};
 
-	for (char c : str) {
-		if (c == '\n') {
+	for (char ch : str) {
+		if (ch == '\n') {
 			charMap.push_back(row);
 			row.clear();
 		}
 		else {
-			row.push_back(c);
+			row.push_back(ch);
 		}
 	}
 
 	// add the final row
 	charMap.push_back(row);
 
-	return charMap;
+	// format charMap
+	std::vector<std::vector<char>> formattedMap(charMap[0].size(), std::vector<char>(charMap.size()));
+
+	for (size_t i = 0; i < charMap.size(); i++) {
+		for (size_t j = 0; j < charMap[i].size(); j++) {
+			formattedMap[j][i] = charMap[i][j];
+		}
+	}
+
+	return formattedMap;
 }
 
 static Effect stringToEffect(const char* c) {

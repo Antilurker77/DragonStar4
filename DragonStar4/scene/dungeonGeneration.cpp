@@ -380,7 +380,7 @@ void DungeonScene::genPrefab(pcg64& pcg) {
 void DungeonScene::spawnMonsters() {
 	actors.resize(1);
 
-	actors.push_back(std::make_shared<Monster>(1, sf::Vector2i(4, 4)));
+	actors.push_back(std::make_shared<Monster>(1, sf::Vector2i(4, 5)));
 }
 
 void DungeonScene::formatWalls() {

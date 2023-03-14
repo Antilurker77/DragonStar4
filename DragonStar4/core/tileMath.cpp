@@ -81,6 +81,16 @@ std::vector<sf::Vector2i> TileMath::Neighboors(sf::Vector2i tile) {
 	return result;
 }
 
+std::vector<sf::Vector2i> TileMath::EdgeNeighbors(sf::Vector2i tile) {
+	std::vector<sf::Vector2i> result{
+		{ tile.x + 1, tile.y },
+		{ tile.x - 1, tile.y },
+		{ tile.x, tile.y - 1 },
+		{ tile.x, tile.y + 1 }
+	};
+	return result;
+}
+
 sf::Vector2f TileMath::TileToPixel(sf::Vector2i tile) {
 	return sf::Vector2f(tile.x * 32.f, tile.y * 32.f);
 }

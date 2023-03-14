@@ -68,6 +68,12 @@ void DungeonScene::ReadInput(sf::RenderWindow& window) {
 				command = std::make_shared<WaitCommand>(100);
 			}
 
+			//debug
+			else if (ev.key.code == sf::Keyboard::R) {
+				floorSeeds[0] = Random::RandomSeed();
+				generateFloor();
+			}
+
 			if (actors[0]->GetTileLocation() != destination) {
 				Actor* actorAtTile = GetActorAtTile(destination);
 
@@ -172,7 +178,7 @@ std::vector<sf::Vector2i> DungeonScene::Pathfind(sf::Vector2i start, sf::Vector2
 			int64_t cost = costSoFar[current] + std::min(GetLineCost(current, next, false), GetLineCost(current, next, true));
 			if (costSoFar.find(next) == costSoFar.end() || cost < costSoFar[next]) {
 				costSoFar[next] = cost;
-				int64_t priority = cost + std::min(GetLineCost(current, next, false), GetLineCost(current, next, true));
+				int64_t priority = cost + std::min(GetLineCost(next, end, false), GetLineCost(next, end, true));
 				cameFrom[next] = current;
 				frontier.push_back({ next, priority });
 			}
@@ -203,6 +209,70 @@ std::vector<sf::Vector2i> DungeonScene::Pathfind(sf::Vector2i start, sf::Vector2
 	return path;
 }
 
+std::vector<sf::Vector2i> DungeonScene::CorridorPathfind(sf::Vector2i start, sf::Vector2i end) {
+	std::vector<sf::Vector2i> path{};
+
+	std::vector<std::pair<sf::Vector2i, int64_t>> frontier{};
+	std::unordered_map<sf::Vector2i, sf::Vector2i> cameFrom{};
+	std::unordered_map<sf::Vector2i, int64_t> costSoFar{};
+
+	frontier.push_back({ start, 0 });
+	cameFrom[start] = start;
+	costSoFar[start] = 0;
+
+	while (!frontier.empty()) {
+		// Sort frontier by cost for optimization.
+		std::sort(frontier.begin(), frontier.end(), [](const std::pair<sf::Vector2i, int64_t>& left, const std::pair<sf::Vector2i, int64_t>& right) {return left.second < right.second; });
+
+		sf::Vector2i current = frontier.front().first;
+		if (current == end) {
+			break;
+		}
+
+		// For corridors, don't path at the edge of an existing room.
+		std::vector<sf::Vector2i> neighboors = TileMath::EdgeNeighbors(current);
+		std::vector<sf::Vector2i> walkableNeighboors{};
+		for (auto& t : neighboors) {
+			if (doesAllowCorridor(t)) {
+				walkableNeighboors.push_back(t);
+			}
+		}
+
+		// The algorithm.
+		for (auto& next : walkableNeighboors) {
+			int64_t cost = costSoFar[current] + std::min(GetRawLineCost(current, next, false), GetRawLineCost(current, next, true));
+			if (costSoFar.find(next) == costSoFar.end() || cost < costSoFar[next]) {
+				costSoFar[next] = cost;
+				int64_t priority = cost + std::min(GetRawLineCost(next, end, false), GetRawLineCost(next, end, true));
+				cameFrom[next] = current;
+				frontier.push_back({ next, priority });
+			}
+		}
+
+		frontier.erase(frontier.begin());
+	}
+
+	// Create the vector and return the path.
+	sf::Vector2i current = end;
+	path.push_back(current);
+
+	while (current != start) {
+		auto i = cameFrom.find(current);
+		if (i != cameFrom.end()) { // Prevents the algorithm from adding the end to the path if it's impossible to reach.
+			current = i->second;
+		}
+		else {
+			return std::vector<sf::Vector2i>{};
+		}
+		path.push_back(current);
+	}
+
+	// Path needs to be reversed so that it goes start -> end.
+	std::reverse(path.begin(), path.end());
+
+	return path;
+}
+
 int64_t DungeonScene::GetPathCost(std::vector<sf::Vector2i>& path) {
 	int64_t result = 0;
 
@@ -212,6 +282,21 @@ int64_t DungeonScene::GetPathCost(std::vector<sf::Vector2i>& path) {
 		}
 		else {
 			result += GetTileData(path[i])->MoveMod;
+		}
+	}
+
+	return result;
+}
+
+int64_t DungeonScene::GetRawPathCost(std::vector<sf::Vector2i>& path) {
+	int64_t result = 0;
+
+	for (size_t i = 1; i < path.size(); i++) {
+		if (path[i].x != path[i - 1].x && path[i].y != path[i - 1].y) {
+			result += 14142l;
+		}
+		else {
+			result += 10000l;
 		}
 	}
 
@@ -230,6 +315,15 @@ int64_t DungeonScene::GetLineCost(sf::Vector2i start, sf::Vector2i end, bool neg
 			result += GetTileData(line[i])->MoveMod;
 		}
 	}
+
+	return result;
+}
+
+int64_t DungeonScene::GetRawLineCost(sf::Vector2i start, sf::Vector2i end, bool negativeOffset) {
+	int64_t result = 0;
+
+	result = std::abs(start.x - end.x) + std::abs(start.y - end.y);
+	result *= 10000;
 
 	return result;
 }

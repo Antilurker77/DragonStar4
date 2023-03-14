@@ -33,6 +33,9 @@ namespace TileMath {
 
 	// Returns tiles adjacent to the given tile, including diagonals.
 	std::vector<sf::Vector2i> Neighboors(sf::Vector2i tile);
+
+	// Returns tiles adjacent to the given tile excluding diagonals.
+	std::vector<sf::Vector2i> EdgeNeighbors(sf::Vector2i tile);
 	
 	// Returns the top left pixel cordinates of a tile.
 	sf::Vector2f TileToPixel(sf::Vector2i tile);

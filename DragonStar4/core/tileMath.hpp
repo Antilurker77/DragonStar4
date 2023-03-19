@@ -32,7 +32,7 @@ namespace TileMath {
 	std::vector<sf::Vector2i> CircleArea(sf::Vector2i center, int64_t radius);
 
 	// Returns tiles adjacent to the given tile, including diagonals.
-	std::vector<sf::Vector2i> Neighboors(sf::Vector2i tile);
+	std::vector<sf::Vector2i> Neighbors(sf::Vector2i tile);
 
 	// Returns tiles adjacent to the given tile excluding diagonals.
 	std::vector<sf::Vector2i> EdgeNeighbors(sf::Vector2i tile);

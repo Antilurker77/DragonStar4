@@ -165,16 +165,16 @@ std::vector<sf::Vector2i> DungeonScene::Pathfind(sf::Vector2i start, sf::Vector2
 		}
 
 		// Get unoccupied tiles the actor can travel to.
-		std::vector<sf::Vector2i> neighboors = TileMath::Neighboors(current);
-		std::vector<sf::Vector2i> walkableNeighboors{};
-		for (auto& t : neighboors) {
+		std::vector<sf::Vector2i> neighbors = TileMath::Neighbors(current);
+		std::vector<sf::Vector2i> walkableNeighbors{};
+		for (auto& t : neighbors) {
 			if (IsPassible(t) && GetActorAtTile(t) == nullptr) {
-				walkableNeighboors.push_back(t);
+				walkableNeighbors.push_back(t);
 			}
 		}
 
 		// The algorithm.
-		for (auto& next : walkableNeighboors) {
+		for (auto& next : walkableNeighbors) {
 			int64_t cost = costSoFar[current] + std::min(GetLineCost(current, next, false), GetLineCost(current, next, true));
 			if (costSoFar.find(next) == costSoFar.end() || cost < costSoFar[next]) {
 				costSoFar[next] = cost;
@@ -230,16 +230,16 @@ std::vector<sf::Vector2i> DungeonScene::CorridorPathfind(sf::Vector2i start, sf:
 		}
 
 		// For corridors, don't path at the edge of an existing room.
-		std::vector<sf::Vector2i> neighboors = TileMath::EdgeNeighbors(current);
-		std::vector<sf::Vector2i> walkableNeighboors{};
-		for (auto& t : neighboors) {
+		std::vector<sf::Vector2i> neighbors = TileMath::EdgeNeighbors(current);
+		std::vector<sf::Vector2i> walkableNeighbors{};
+		for (auto& t : neighbors) {
 			if (doesAllowCorridor(t)) {
-				walkableNeighboors.push_back(t);
+				walkableNeighbors.push_back(t);
 			}
 		}
 
 		// The algorithm.
-		for (auto& next : walkableNeighboors) {
+		for (auto& next : walkableNeighbors) {
 			int64_t cost = costSoFar[current] + std::min(GetRawLineCost(current, next, false), GetRawLineCost(current, next, true));
 			if (costSoFar.find(next) == costSoFar.end() || cost < costSoFar[next]) {
 				costSoFar[next] = cost;
@@ -322,7 +322,7 @@ int64_t DungeonScene::GetLineCost(sf::Vector2i start, sf::Vector2i end, bool neg
 int64_t DungeonScene::GetRawLineCost(sf::Vector2i start, sf::Vector2i end, bool negativeOffset) {
 	int64_t result = 0;
 
-	result = std::abs(start.x - end.x) + std::abs(start.y - end.y);
+	result = static_cast<int64_t>(std::abs(start.x - end.x) + std::abs(start.y - end.y));
 	result *= 10000;
 
 	return result;
@@ -475,8 +475,8 @@ void DungeonScene::buildFloorVertexArray() {
 			sf::Vertex* quad = &floorVertexArray[i * 4];
 			uint8_t spriteNumber = gameData.GetTile(floor[x][y])->SpriteNumber;
 
-			float texX = spriteNumber % 4 * tileSize;
-			float texY = spriteNumber / 4 * tileSize;
+			float texX = static_cast<float>(spriteNumber % 4) * tileSize;
+			float texY = static_cast<float>(spriteNumber / 4) * tileSize;
 			float posX = x * tileSize;
 			float posY = y * tileSize;
 

@@ -67,7 +67,7 @@ std::vector<sf::Vector2i> TileMath::CircleArea(sf::Vector2i center, int64_t radi
 	return result;
 }
 
-std::vector<sf::Vector2i> TileMath::Neighboors(sf::Vector2i tile) {
+std::vector<sf::Vector2i> TileMath::Neighbors(sf::Vector2i tile) {
 	std::vector<sf::Vector2i> result{
 		{ tile.x + 1, tile.y },
 		{ tile.x + 1, tile.y - 1 },

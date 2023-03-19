@@ -413,7 +413,7 @@ void DungeonScene::calcAllowCorridor() {
 			}
 			else {
 				allowCorridor[x][y] = 'y';
-				auto neighbors = TileMath::Neighboors({ static_cast<int>(x), static_cast<int>(y) });
+				auto neighbors = TileMath::Neighbors({ static_cast<int>(x), static_cast<int>(y) });
 				for (auto& c : neighbors) {
 					if (c.x >= 0 && c.y >= 0 && c.x < floor.size() && c.y < floor[x].size()) {
 						if (floor[c.x][c.y] != 3) {

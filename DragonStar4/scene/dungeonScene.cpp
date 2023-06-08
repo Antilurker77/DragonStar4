@@ -466,7 +466,7 @@ void DungeonScene::buildFloorVertexArray() {
 	floorVertexArray.setPrimitiveType(sf::Quads);
 	floorVertexArray.resize(floor.size() * floor[0].size() * 4);
 
-	const float tileSize = 32.f;
+	const float tileSize = settings.TileSizeF;
 
 	size_t i = 0;
 

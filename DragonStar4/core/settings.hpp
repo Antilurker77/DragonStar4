@@ -64,6 +64,9 @@ struct Settings {
 	std::string Font = "gfx/font/B612Mono-Regular.ttf";
 	std::string Tileset = "standard";
 
+	int TileSize = 40;
+	float TileSizeF = static_cast<float>(TileSize);
+
 	CameraKeys CameraKeybinds;
 	MoveKeys MoveKeybinds;
 };

@@ -6,6 +6,8 @@
 
 #include "tileMath.hpp"
 
+#include "settings.hpp"
+
 int64_t TileMath::Distance(sf::Vector2i start, sf::Vector2i end) {
 	int64_t result = 0;
 
@@ -92,5 +94,5 @@ std::vector<sf::Vector2i> TileMath::EdgeNeighbors(sf::Vector2i tile) {
 }
 
 sf::Vector2f TileMath::TileToPixel(sf::Vector2i tile) {
-	return sf::Vector2f(tile.x * 32.f, tile.y * 32.f);
+	return sf::Vector2f(tile.x * settings.TileSizeF, tile.y * settings.TileSizeF);
 }

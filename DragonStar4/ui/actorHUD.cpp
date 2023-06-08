@@ -6,6 +6,7 @@
 
 #include "actorHUD.hpp"
 
+#include "../core/settings.hpp"
 #include "../core/tileMath.hpp"
 #include "../entity/actor.hpp"
 
@@ -22,8 +23,8 @@ ActorHUD::ActorHUD() {
 void ActorHUD::Update(Actor* actor) {
 	sf::Vector2f pos = actor->GetPosition();
 
-	pos.x += 6.f;
-	pos.y += 34.f;
+	pos.x += settings.TileSizeF / 2.f - 10.f;
+	pos.y += settings.TileSizeF + 2.f;
 
 	if (actor->IsPlayer()) {
 		pos.y += 4.f;
@@ -42,7 +43,7 @@ void ActorHUD::UpdateLifeBar(Actor* actor) {
 	float ratio = static_cast<float>(actor->GetCurrentHP()) / static_cast<float>(actor->GetMaxHP());
 	ratio *= 20.f;
 
-	// Always display a little sliver of life bar if the actor is alive.
+	// Always display a little sliver of the life bar if the actor is alive.
 	if (ratio < 1.f) {
 		ratio = 1.f;
 	}

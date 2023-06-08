@@ -77,8 +77,8 @@ void DungeonScene::genTest() {
 
 void DungeonScene::genPrefab(pcg64& pcg) {
 	std::vector<Room> rooms;
-	size_t xBound = 32;
-	size_t yBound = 32;
+	size_t xBound = 64;
+	size_t yBound = 64;
 	const size_t corridorIndex = 270;
 
 	floor = std::vector<std::vector<size_t>>(xBound, std::vector<size_t>(yBound));
@@ -92,7 +92,7 @@ void DungeonScene::genPrefab(pcg64& pcg) {
 	}
 
 	// Add a random number of rooms.
-	size_t numRooms = Random::RandomSizeT(6, 8, pcg);
+	size_t numRooms = Random::RandomSizeT(6, 10, pcg);
 	rooms.reserve(numRooms);
 
 	for (size_t i = 0; i < numRooms; i++) {
@@ -105,8 +105,8 @@ void DungeonScene::genPrefab(pcg64& pcg) {
 
 		while (searching && attempts < 10000) {
 			attempts++;
-			size_t xPos = Random::RandomSizeT(2, xBound - roomWidth - 3, pcg);
-			size_t yPos = Random::RandomSizeT(2, yBound - roomHeight - 3, pcg);
+			size_t xPos = Random::RandomSizeT(2, xBound - roomWidth - 2, pcg);
+			size_t yPos = Random::RandomSizeT(2, yBound - roomHeight - 2, pcg);
 
 			// Check to see if a room is already placed there.
 			bool failed = false;

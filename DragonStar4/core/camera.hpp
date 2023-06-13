@@ -25,6 +25,9 @@ public:
 	// Moves the camera to the designated position.
 	void SetPosition(sf::Vector2f pos);
 
+	// Moves the camera centered on the designated tile.
+	void SetPositionTile(sf::Vector2i tilePos);
+
 	// Moves the camera to the designated position at a give units per second.
 	void Move(sf::Vector2f pos, float unitsPerSecond);
 

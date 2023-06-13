@@ -11,6 +11,7 @@
 
 #include <iomanip>
 #include <sstream>
+#include "../core/camera.hpp"
 #include "../core/random.hpp"
 #include "../core/tileMath.hpp"
 #include "../data/gameData.hpp"
@@ -52,6 +53,10 @@ void DungeonScene::generateFloor() {
 
 	// Clean up walls to use the proper graphic.
 	formatWalls();
+
+	// Move the player and center camera.
+	GetPlayer()->MoveToTile(playerSpawnPosition);
+	camera->SetPositionTile(playerSpawnPosition);
 
 	// Finally, build the vertex array for the floor.
 	buildFloorVertexArray();
@@ -145,6 +150,10 @@ void DungeonScene::genPrefab(pcg64& pcg) {
 			}
 		}
 	}
+
+	// Player and stairs.
+	placePlayer(pcg, xBound, yBound);
+	spawnStairs(pcg, xBound, yBound);
 
 	// Connect the rooms.
 	calcAllowCorridor();
@@ -387,7 +396,8 @@ void DungeonScene::formatWalls() {
 	for (size_t i = 0; i < floor.size(); i++) {
 		for (size_t j = 0; j < floor[i].size() - 1; j++) {
 			if (floor[i][j] == 3) {
-				if (floor[i][j + 1] == 1) {
+				sf::Vector2i check{static_cast<int>(i), static_cast<int>(j + 1)};
+				if (IsPassible(check)) {
 					floor[i][j] = 2;
 				}
 			}
@@ -457,6 +467,32 @@ void DungeonScene::removeDeadEnds() {
 		}
 		if (removed == 0) {
 			removing = false;
+		}
+	}
+}
+
+void DungeonScene::placePlayer(pcg64& pcg, size_t xBound, size_t yBound) {
+	while (true) {
+		size_t xTest = Random::RandomSizeT(0, xBound - 1, pcg);
+		size_t yTest = Random::RandomSizeT(0, yBound - 1, pcg);
+		sf::Vector2i testTile{static_cast<int>(xTest), static_cast<int>(yTest)};
+
+		if (IsPassible(testTile)) {
+			playerSpawnPosition = testTile;
+			return;
+		}
+	}
+}
+
+void DungeonScene::spawnStairs(pcg64& pcg, size_t xBound, size_t yBound) {
+	while (true) {
+		size_t xTest = Random::RandomSizeT(0, xBound - 1, pcg);
+		size_t yTest = Random::RandomSizeT(0, yBound - 1, pcg);
+		sf::Vector2i testTile{static_cast<int>(xTest), static_cast<int>(yTest)};
+
+		if (testTile != playerSpawnPosition && IsPassible(testTile)) {
+			floor[xTest][yTest] = 4;
+			return;
 		}
 	}
 }

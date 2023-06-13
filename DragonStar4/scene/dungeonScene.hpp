@@ -125,6 +125,12 @@ private:
 	// Removes dead-ends in corridors.
 	void removeDeadEnds();
 
+	// Sets the spawn location for the player.
+	void placePlayer(pcg64& pcg, size_t xBound, size_t yBound);
+
+	// Sets the spawn location for stairs.
+	void spawnStairs(pcg64& pcg, size_t xBound, size_t yBound);
+
 	// ================================
 
 	// Graphics
@@ -146,6 +152,7 @@ private:
 	std::vector<std::vector<size_t>> floor;
 	std::vector<std::vector<char>> allowCorridor;
 	std::vector<uint64_t> floorSeeds;
+	sf::Vector2i playerSpawnPosition;
 
 	std::vector<ActorPtr> actors;
 	Actor* activeActor = nullptr;

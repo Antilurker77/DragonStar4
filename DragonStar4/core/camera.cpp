@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include "settings.hpp"
+#include "tileMath.hpp"
 
 Camera::Camera(sf::Vector2f size) {
 	camera.setSize(size);
@@ -34,6 +35,13 @@ void Camera::SetPosition(sf::Vector2f pos) {
 	goalPos = pos;
 	velocity = { 0.f, 0.f };
 	velocityPerUpdate = { 0.f, 0.f };
+}
+
+void Camera::SetPositionTile(sf::Vector2i tilePos) {
+	sf::Vector2f pos = TileMath::TileToPixel(tilePos);
+	pos.x += settings.TileSizeF / 2.f;
+	pos.y += settings.TileSizeF / 2.f;
+	SetPosition(pos);
 }
 
 void Camera::Move(sf::Vector2f pos, float unitsPerSecond) {
